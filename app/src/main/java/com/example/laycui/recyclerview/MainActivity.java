@@ -4,16 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
   RecyclerView mMainRecyclerView;
   RecyclerView.Adapter mAdapter;
+
+  ClusterController1 mClusterController1;
+  ClusterController2 mClusterController2;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,21 +31,11 @@ public class MainActivity extends AppCompatActivity {
     public MainHolder onCreateViewHolder(ViewGroup parent, int viewType) {
       switch (viewType) {
         case 0:
-          RecyclerView mRecyclerView1 = new RecyclerView(MainActivity.this);
-          mRecyclerView1.setLayoutManager(
-              new LinearLayoutManager(
-                  MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-          ClusterController1 clusterController1 =
-              new ClusterController1(getApplicationContext());
-          return new MainHolder(mRecyclerView1, clusterController1);
+          mClusterController1 = new ClusterController1(MainActivity.this);
+          return new MainHolder(mClusterController1.mRecyclerView, mClusterController1);
         case 1:
-          RecyclerView mRecyclerView2 = new RecyclerView(MainActivity.this);
-          mRecyclerView2.setLayoutManager(
-              new LinearLayoutManager(
-                  MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-          ClusterController2 clusterController2 =
-              new ClusterController2(getApplicationContext());
-          return new MainHolder(mRecyclerView2, clusterController2);
+          mClusterController2 = new ClusterController2(MainActivity.this);
+          return new MainHolder(mClusterController2.mRecyclerView, mClusterController2);
         default:
           return null;
       }
@@ -69,18 +58,15 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private class MainHolder extends RecyclerView.ViewHolder {
-    RecyclerView mSubRecyclerView;
-    RecyclerView.Adapter mSubAdapter;
+    private ClusterController mClusterClusterController;
 
-    MainHolder(View itemView, RecyclerView.Adapter adapter) {
+    MainHolder(View itemView, ClusterController clusterClusterController1) {
       super(itemView);
-      mSubAdapter = adapter;
-      mSubRecyclerView = (RecyclerView) itemView;
-      mSubRecyclerView.setAdapter(mSubAdapter);
+      mClusterClusterController = clusterClusterController1;
     }
 
     void bindView() {
-      mSubRecyclerView.getAdapter().notifyDataSetChanged();
+      mClusterClusterController.bindView();
     }
   }
 }

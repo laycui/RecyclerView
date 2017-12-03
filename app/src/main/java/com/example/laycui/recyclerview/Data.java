@@ -17,7 +17,7 @@ public class Data {
     return sData;
   }
 
-  public Data() {
+  private Data() {
     mButtons = new ArrayList<>();
     for (int i = 0; i < 20; i++) {
       mButtons.add("Button " + i);
